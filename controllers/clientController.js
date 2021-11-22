@@ -1,3 +1,5 @@
+const { Client } = require('../models/entities');
+
 const loginControl = (request, response) => {
     const clientServices = require('../services/clientServices');
 
@@ -23,8 +25,7 @@ const loginControl = (request, response) => {
                     request.session.user = username;
                     request.session.num_client = client[0].num_client;
                     request.session.admin = false;
-                    response.send(`Login (${username}, ID.${client[0].num_client}) successful!`);
-                    response.end();
+                    response.render('loginDone',{name:username})
                 }
             });
         }
@@ -55,9 +56,8 @@ const registerControl = (request, response) => {
         } else {
             client.num_client = insertedID;
             console.log(`Registration (${username}, ${insertedID}) successful!`);
-            response.send(`Successful registration ${client.contact} (ID.${client.num_client})!`);
+            response.render('resDone',{user:username});
         }
-        response.end();
     });
 };
 

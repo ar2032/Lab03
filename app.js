@@ -1,10 +1,19 @@
 const express = require('express');
+const session = require('express-session');
+
 
 //creating app
 const app = express();
+// using JSON and URL Encoded middleware 
+app.use(express.json()); 
+app.use(express.urlencoded({ extended: true }));
+
 
 //handling static HTML and EJS templates
 app.use(express.static('public'));
+app.use(session({secret: 'some secret code'}));
+
+
 app.set('view engine', 'ejs');
 app.get('/', (req, res) => {
  res.render('index'); //no need for ejs extension
@@ -21,9 +30,13 @@ app.use(router);
 //routes for dynamic processing of clients
 //-----------------------------------------------
 //route for registration
-router.post('/api/register', clientController.registerControl);
+app.get('/register',  (req, res) => {
+    res.render('register');
+});;
 //route for login
-router.post('/api/login', clientController.loginControl);
+app.get('/login',  (req, res) => {
+    res.render('login');
+});
 
 
 // //make the app listen on port
