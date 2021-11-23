@@ -74,6 +74,15 @@ const registerService = (client, callback) => {
 };
 
 const searchService = function(callback) { //to be completed
+    clientDAO.find(function(err,rows){
+        if (err){
+            throw err;
+        }
+        else{
+            console.log(rows)
+        }
+        callback(null,rows);
+    })
 };
 
 const searchNumclientService = function(num_client, callback) {

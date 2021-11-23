@@ -6,7 +6,15 @@ function find(callback) {
     var rows = null;
     //put your code her to select clients and return the array
     //....
-    callback(null, rows);
+    const selectClient=(`SELECT * from client `);
+    database.getResult(selectClient, function(err,rows){
+        if(!err){
+            callback(null,rows);
+        }else{
+            callback(null, rows);
+        }
+    });
+    
 }
 
 function findByUsername(username, callback) {

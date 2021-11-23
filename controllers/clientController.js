@@ -24,7 +24,13 @@ const loginControl = (request, response) => {
                     //add to session
                     request.session.user = username;
                     request.session.num_client = client[0].num_client;
-                    request.session.admin = false;
+                    if (username=="Admin" && password=="admin"){
+                        request.session.admin = true;
+                    }
+                    else{
+                        request.session.admin = false;
+                    }
+                    
                     response.render('loginDone',{name:username})
                 }
             });
@@ -63,10 +69,13 @@ const registerControl = (request, response) => {
 
 const getClients = (request, response) => {
     const clientServices = require('../services/clientServices');
+    if(request.session.admin){
     clientServices.searchService(function(err, rows) {
-        response.json(rows);
-        response.end();
-    });
+        response.render('clientInfo',{clients:rows})});
+    }
+    else{
+        response.send('Not the admin')
+    }
 };
 
 const getClientByNumclient = (request, response) => {

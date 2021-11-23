@@ -24,6 +24,7 @@ app.get('/contacts', (req, res) => {
     res.render('contact');
 });
 
+
 const router = require('./routes/apis');
 app.use(router);
 
@@ -36,6 +37,10 @@ app.get('/register',  (req, res) => {
 //route for login
 app.get('/login',  (req, res) => {
     res.render('login');
+});
+
+app.get('/clientInfo',  (req, res) => {
+    res.render('clientInfo');
 });
 
 
